@@ -323,33 +323,33 @@ public:
         return wynik;
     }
 
-    Polynomial &operator+(const Polynomial &other)
+    Polynomial operator+(const Polynomial &other)
     {
-        Polynomial<T> *wynik = new Polynomial<T>(other);
+        Polynomial<T> wynik(other);
         Term<T> *currentNode = head;
         while (currentNode != nullptr)
         {
-            wynik->addTerm(currentNode->wspolczynnik, currentNode->potega);
+            wynik.addTerm(currentNode->wspolczynnik, currentNode->potega);
             currentNode = currentNode->next;
         }
-        return *wynik;
+        return wynik;
     }
 
-    Polynomial &operator-(const Polynomial &other)
+    Polynomial operator-(const Polynomial &other)
     {
-        Polynomial<T> *wynik = new Polynomial<T>(*this);
+        Polynomial<T> wynik(*this);
         Term<T> *currentNode = other.head;
         while (currentNode != nullptr)
         {
-            wynik->addTerm((currentNode->wspolczynnik * -1), currentNode->potega);
+            wynik.addTerm((currentNode->wspolczynnik * -1), currentNode->potega);
             currentNode = currentNode->next;
         }
-        return *wynik;
+        return wynik;
     }
 
-    Polynomial &operator*(const Polynomial &other)
+    Polynomial operator*(const Polynomial &other)
     {
-        Polynomial<T> *wynik = new Polynomial<T>();
+        Polynomial<T> wynik;
         Term<T> *currentNode = head;
         Term<T> *otherNode;
         T nowyWspolczynnik;
@@ -361,12 +361,12 @@ public:
             {
                 nowyWspolczynnik = ((currentNode->wspolczynnik) * (otherNode->wspolczynnik));
                 nowaPotega = ((currentNode->potega) + (otherNode->potega));
-                wynik->addTerm(nowyWspolczynnik, nowaPotega);
+                wynik.addTerm(nowyWspolczynnik, nowaPotega);
                 otherNode = otherNode->next;
             }
             currentNode = currentNode->next;
         }
-        return *wynik;
+        return wynik;
     }
 
     bool operator==(const Polynomial &other)
